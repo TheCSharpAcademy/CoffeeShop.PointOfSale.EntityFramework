@@ -1,10 +1,17 @@
-﻿namespace CoffeeShop.PointOfSale.EntityFramework;
+﻿using Spectre.Console;
+
+namespace CoffeeShop.PointOfSale.EntityFramework;
 
 internal class ProductController
 {
     internal static void AddProduct()
     {
-        throw new NotImplementedException();
+        var name = AnsiConsole.Ask<string>("Product's name:");
+
+        using var db = new ProductsContext();
+        db.Add(new Product { Name = name });
+
+        db.SaveChanges();
     }
 
     internal static void DeleteProduct()
@@ -19,7 +26,9 @@ internal class ProductController
 
     internal static void GetProducts()
     {
-        throw new NotImplementedException();
+        using var db = new ProductsContext();
+        var products = db.Products.ToList();
+        UserInterface.ShowProductTable(products);
     }
 
     internal static void UpdateProduct()
