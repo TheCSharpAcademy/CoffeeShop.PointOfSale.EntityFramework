@@ -21,7 +21,11 @@ while (isAppRunning)
             ProductController.AddProduct();
             break;
         case MenuOptions.DeleteProduct:
-            ProductController.DeleteProduct();
+            var productsForDeleting = ProductController.GetProducts();
+            var productNameForDeleting = UserInterface.GetProductOptionInput(productsForDeleting);
+            var idForDeleting = productsForDeleting.Single(x => x.Name == productNameForDeleting).Id;
+            var productForDeleting = ProductController.GetProductById(idForDeleting);
+            ProductController.DeleteProduct(productForDeleting);
             break;
         case MenuOptions.UpdateProduct:
             ProductController.UpdateProduct();
