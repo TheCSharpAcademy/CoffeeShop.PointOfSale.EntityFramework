@@ -27,11 +27,15 @@ while (isAppRunning)
             ProductController.UpdateProduct();
             break;
         case MenuOptions.ViewProduct:
-            ProductController.GetProductById();
+            var products = ProductController.GetProducts();
+            var productName = UserInterface.GetProductOptionInput(products);
+            var id = products.Single(x => x.Name == productName).Id;
+            var product = ProductController.GetProductById(id);
+            UserInterface.ShowProduct(product);
             break;
         case MenuOptions.ViewAllProducts:
-            var products = ProductController.GetProducts();
-            UserInterface.ShowProductTable(products);
+            var allProducts = ProductController.GetProducts();
+            UserInterface.ShowProductTable(allProducts);
             break;
     }
 }

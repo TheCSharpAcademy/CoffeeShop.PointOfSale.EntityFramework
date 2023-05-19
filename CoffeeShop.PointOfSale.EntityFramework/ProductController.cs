@@ -19,9 +19,12 @@ internal class ProductController
         throw new NotImplementedException();
     }
 
-    internal static void GetProductById()
+    internal static Product GetProductById(int id)
     {
-        throw new NotImplementedException();
+        using var db = new ProductsContext();
+        var product = db.Products.FirstOrDefault(x => x.Id == id);
+
+        return product;
     }
 
     internal static List<Product> GetProducts()
