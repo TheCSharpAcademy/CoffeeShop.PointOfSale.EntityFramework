@@ -30,7 +30,8 @@ while (isAppRunning)
             ProductController.GetProductById();
             break;
         case MenuOptions.ViewAllProducts:
-            ProductController.GetProducts();
+            var products = ProductController.GetProducts();
+            UserInterface.ShowProductTable(products);
             break;
     }
 }
