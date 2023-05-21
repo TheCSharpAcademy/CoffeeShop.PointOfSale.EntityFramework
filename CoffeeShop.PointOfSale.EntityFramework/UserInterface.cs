@@ -22,10 +22,15 @@ Name: {product.Name}");
         var table = new Table();
         table.AddColumn("Id");
         table.AddColumn("Name");
+        table.AddColumn("Price");
 
         foreach (Product product in products)
         {
-            table.AddRow(product.Id.ToString(), product.Name);
+            table.AddRow(
+                product.Id.ToString(), 
+                product.Name, 
+                product.Price.ToString()
+                );
         }
 
         AnsiConsole.Write(table);
