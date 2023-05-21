@@ -18,28 +18,19 @@ while (isAppRunning)
     switch (option)
     {
         case MenuOptions.AddProduct:
-            ProductController.AddProduct();
+            ProductService.InsertProduct();
             break;
         case MenuOptions.DeleteProduct:
-            var productsForDeleting = ProductController.GetProducts();
-            var productNameForDeleting = UserInterface.GetProductOptionInput(productsForDeleting);
-            var idForDeleting = productsForDeleting.Single(x => x.Name == productNameForDeleting).Id;
-            var productForDeleting = ProductController.GetProductById(idForDeleting);
-            ProductController.DeleteProduct(productForDeleting);
+            ProductService.DeleteProduct();
             break;
         case MenuOptions.UpdateProduct:
             ProductController.UpdateProduct();
             break;
         case MenuOptions.ViewProduct:
-            var products = ProductController.GetProducts();
-            var productName = UserInterface.GetProductOptionInput(products);
-            var id = products.Single(x => x.Name == productName).Id;
-            var product = ProductController.GetProductById(id);
-            UserInterface.ShowProduct(product);
+            ProductService.GetProduct();
             break;
         case MenuOptions.ViewAllProducts:
-            var allProducts = ProductController.GetProducts();
-            UserInterface.ShowProductTable(allProducts);
+            ProductService.GetProducts();
             break;
     }
 }
