@@ -17,6 +17,8 @@ static internal class UserInterface
 
         AnsiConsole.Write(table);
 
+        Console.WriteLine("Enter any key to go back to Main Menu");
         Console.ReadLine();
+        Console.Clear();
     }
 }

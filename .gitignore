@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 /CoffeeShop.PointOfSale.EntityFramework/products.db-shm
 /CoffeeShop.PointOfSale.EntityFramework/products.db-wal
+/CoffeeShop.PointOfSale.EntityFramework/products.db
+/CoffeeShop.PointOfSale.EntityFramework/products.db

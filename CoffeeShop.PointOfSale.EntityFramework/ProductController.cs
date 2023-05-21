@@ -27,7 +27,9 @@ internal class ProductController
     internal static List<Product> GetProducts()
     {
         using var db = new ProductsContext();
+
         var products = db.Products.ToList();
+
         return products;
     }
 
