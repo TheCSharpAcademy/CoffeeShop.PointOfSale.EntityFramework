@@ -34,14 +34,4 @@ Name: {product.Name}");
         Console.ReadLine();
         Console.Clear();
     }
-
-    static internal string GetProductOptionInput(List<Product> products)
-    {
-        var productsArray = products.Select(x => x.Name).ToArray();
-        var option = AnsiConsole.Prompt(new SelectionPrompt<string>()
-            .Title("Choose Product")
-            .AddChoices(productsArray));
-
-        return option;
-    }
 }
