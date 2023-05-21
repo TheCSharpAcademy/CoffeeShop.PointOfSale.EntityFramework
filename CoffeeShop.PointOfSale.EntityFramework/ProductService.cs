@@ -28,6 +28,13 @@ internal class ProductService
         UserInterface.ShowProduct(product);
     }
 
+    internal static void UpdateProduct() 
+    { 
+        var product = GetProductOptionInput();
+        product.Name = AnsiConsole.Ask<string>("Product's new name:");
+        ProductController.UpdateProduct(product);
+    }
+
     static private Product GetProductOptionInput()
     {
         var products = ProductController.GetProducts();

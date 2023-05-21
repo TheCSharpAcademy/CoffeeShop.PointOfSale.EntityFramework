@@ -41,8 +41,12 @@ internal class ProductController
         return products;
     }
 
-    internal static void UpdateProduct()
+    internal static void UpdateProduct(Product product)
     {
-        throw new NotImplementedException();
+        using var db = new ProductsContext();
+
+        db.Update(product);
+
+        db.SaveChanges();
     }
 }
