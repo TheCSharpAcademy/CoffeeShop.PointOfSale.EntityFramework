@@ -4,7 +4,7 @@ namespace CoffeeShop.PointOfSale.EntityFramework;
 
 static internal class UserInterface
 {
-    static internal void ShowProduct(Product product)
+    internal static void ShowProduct(Product product)
     {
         var panel = new Panel($@"Id: {product.Id}
 Name: {product.Name}");
@@ -13,10 +13,11 @@ Name: {product.Name}");
 
         AnsiConsole.Write(panel);
 
-        Console.WriteLine("Press Any Key to Return to Menu");
+        Console.WriteLine("Enter any key to go back to Main Menu");
         Console.ReadLine();
         Console.Clear();
     }
+
     static internal void ShowProductTable(List<Product> products)
     {
         var table = new Table();
@@ -30,18 +31,8 @@ Name: {product.Name}");
 
         AnsiConsole.Write(table);
 
-        Console.WriteLine("Press Any Key to Return to Menu");
+        Console.WriteLine("Enter any key to go back to Main Menu");
         Console.ReadLine();
         Console.Clear();
-    }
-
-    static internal string GetProductOptionInput(List<Product> products)
-    {
-        var productsArray = products.Select(x => x.Name).ToArray();
-        var option = AnsiConsole.Prompt(new SelectionPrompt<string>()
-            .Title("Choose Product")
-            .AddChoices(productsArray));
-
-        return option;
     }
 }
