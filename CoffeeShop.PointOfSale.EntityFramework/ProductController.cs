@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using CoffeeShop.PointOfSale.EntityFramework.Models;
+using Spectre.Console;
 
 namespace CoffeeShop.PointOfSale.EntityFramework;
 
@@ -27,7 +28,7 @@ internal class ProductController
     {
         using var db = new ProductsContext();
 
-        var product = db.Products.SingleOrDefault(x => x.Id == id);
+        var product = db.Products.SingleOrDefault(x => x.ProductId == id);
 
         return product;
     }

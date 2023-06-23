@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using CoffeeShop.PointOfSale.EntityFramework.Models;
+using Spectre.Console;
 
 namespace CoffeeShop.PointOfSale.EntityFramework;
 
@@ -48,7 +49,7 @@ internal class ProductService
         var option = AnsiConsole.Prompt(new SelectionPrompt<string>()
             .Title("Choose Product")
             .AddChoices(productsArray));
-        var id = products.Single(x => x.Name == option).Id;
+        var id = products.Single(x => x.Name == option).ProductId;
         var product = ProductController.GetProductById(id);
 
         return product;
