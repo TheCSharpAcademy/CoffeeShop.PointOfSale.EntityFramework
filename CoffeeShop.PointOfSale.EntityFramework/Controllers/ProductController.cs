@@ -1,7 +1,7 @@
 ﻿using CoffeeShop.PointOfSale.EntityFramework.Models;
 using Spectre.Console;
 
-namespace CoffeeShop.PointOfSale.EntityFramework;
+namespace CoffeeShop.PointOfSale.EntityFramework.Controllers;
 
 internal class ProductController
 {
@@ -21,7 +21,7 @@ internal class ProductController
         db.Remove(product);
 
         db.SaveChanges();
-        
+
     }
 
     internal static Product GetProductById(int id)

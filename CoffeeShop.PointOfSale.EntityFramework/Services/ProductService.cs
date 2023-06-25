@@ -1,7 +1,8 @@
-﻿using CoffeeShop.PointOfSale.EntityFramework.Models;
+﻿using CoffeeShop.PointOfSale.EntityFramework.Controllers;
+using CoffeeShop.PointOfSale.EntityFramework.Models;
 using Spectre.Console;
 
-namespace CoffeeShop.PointOfSale.EntityFramework;
+namespace CoffeeShop.PointOfSale.EntityFramework.Services;
 
 internal class ProductService
 {
@@ -17,7 +18,7 @@ internal class ProductService
     internal static void DeleteProduct()
     {
         var product = GetProductOptionInput();
-        ProductController.DeleteProduct(product);  
+        ProductController.DeleteProduct(product);
     }
 
     internal static void GetProducts()
@@ -32,8 +33,8 @@ internal class ProductService
         UserInterface.ShowProduct(product);
     }
 
-    internal static void UpdateProduct() 
-    { 
+    internal static void UpdateProduct()
+    {
         var product = GetProductOptionInput();
 
         product.Name = AnsiConsole.Confirm("Update name?") ? product.Name : AnsiConsole.Ask<string>("Product's new name:");
