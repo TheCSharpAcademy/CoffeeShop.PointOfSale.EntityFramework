@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/CoffeeShop.PointOfSale.EntityFramework/products.db-shm
+/CoffeeShop.PointOfSale.EntityFramework/products.db-wal
+/CoffeeShop.PointOfSale.EntityFramework/products.db
