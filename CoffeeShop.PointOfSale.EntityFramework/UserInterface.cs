@@ -18,6 +18,8 @@ static internal class UserInterface
             .Title("What would you like to do?")
             .AddChoices(
                 MenuOptions.AddCategory,
+                MenuOptions.DeleteCategory,
+                MenuOptions.UpdateCategory,
                 MenuOptions.ViewAllCategories,
                 MenuOptions.AddProduct,
                 MenuOptions.DeleteProduct,
@@ -29,6 +31,12 @@ static internal class UserInterface
             {
                 case MenuOptions.AddCategory:
                     CategoryService.InsertCategory();
+                    break;
+                case MenuOptions.DeleteCategory:
+                    CategoryService.DeleteCategory();
+                    break;
+                case MenuOptions.UpdateCategory:
+                    CategoryService.UpdateCategory();
                     break;
                 case MenuOptions.ViewAllCategories:
                     CategoryService.GetCategories();
