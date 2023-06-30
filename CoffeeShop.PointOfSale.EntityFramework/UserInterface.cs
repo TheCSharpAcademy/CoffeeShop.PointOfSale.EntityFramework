@@ -19,6 +19,7 @@ static internal class UserInterface
             .AddChoices(
                 MainMenuOptions.ManageCategories,
                 MainMenuOptions.ManageProducts,
+                MainMenuOptions.ManageOrders,
                 MainMenuOptions.Quit));
 
             switch (option)
@@ -28,6 +29,9 @@ static internal class UserInterface
                     break;
                 case MainMenuOptions.ManageProducts:
                     ProductsMenu();
+                    break;
+                case MainMenuOptions.ManageOrders:
+                    OrdersMenu();
                     break;
                 case MainMenuOptions.Quit:
                     Console.WriteLine("Goodbye");
@@ -119,6 +123,35 @@ static internal class UserInterface
         }
     }
 
+    static internal void OrdersMenu()
+    {
+        var isOrderMenuRunning = true;
+        while (isOrderMenuRunning)
+        {
+            Console.Clear();
+            var option = AnsiConsole.Prompt(
+            new SelectionPrompt<OrderMenu>()
+            .Title("Orders Menu")
+            .AddChoices(
+                OrderMenu.AddOrder,
+                OrderMenu.GetOrders,
+                OrderMenu.GoBack));
+
+            switch (option)
+            {
+                case OrderMenu.AddOrder:
+                    OrderService.InsertOrder();
+                    break;
+                case OrderMenu.GetOrders:
+                    OrderService.GetOrders();
+                    break;
+                case OrderMenu.GoBack:
+                    isOrderMenuRunning = false;
+                    break;
+            }
+        }
+    }
+
     static internal void ShowProduct(Product product)
     {
         var panel = new Panel($@"Id: {product.ProductId}
@@ -190,6 +223,31 @@ Product Count: {category.Products.Count}");
         AnsiConsole.Write(panel);
 
         ShowProductTable(category.Products);
+
+        Console.WriteLine("Press Any Key to Return to Menu");
+        Console.ReadLine();
+        Console.Clear();
+    }
+
+    internal static void ShowOrderTable(List<Order> orders)
+    {
+        var table = new Table();
+        table.AddColumn("Id");
+        table.AddColumn("Date");
+        table.AddColumn("Count");
+        table.AddColumn("Total Price");
+
+        foreach (Order order in orders)
+        {
+            table.AddRow(
+                order.OrderId.ToString(),
+                order.CreatedDate.ToString(),
+                order.OrderProducts.Sum(x => x.Quantity).ToString(),
+                order.TotalPrice.ToString()
+                );
+        }
+
+        AnsiConsole.Write(table);
 
         Console.WriteLine("Press Any Key to Return to Menu");
         Console.ReadLine();
