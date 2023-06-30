@@ -1,7 +1,5 @@
 ﻿using CoffeeShop.PointOfSale.EntityFramework.Models;
 using Microsoft.EntityFrameworkCore;
-using Spectre.Console;
-using System.Security.Cryptography.X509Certificates;
 
 namespace CoffeeShop.PointOfSale.EntityFramework.Controllers;
 
@@ -31,6 +29,7 @@ internal class ProductController
         using var db = new ProductsContext();
 
         var product = db.Products
+            .AsNoTracking()
             .Include(x => x.Category)
             .SingleOrDefault(x => x.ProductId == id);
 
@@ -42,6 +41,8 @@ internal class ProductController
         using var db = new ProductsContext();
 
         var products = db.Products
+            .AsNoTracking()
+            .Include(x => x.OrderProducts)
             .Include(x => x.Category)
             .ToList();
 
