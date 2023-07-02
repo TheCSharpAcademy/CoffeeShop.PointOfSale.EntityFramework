@@ -34,6 +34,7 @@ internal class Enums
     {
         AddOrder,
         GetOrders,
+        GetOrder,
         GoBack
     }
 }
