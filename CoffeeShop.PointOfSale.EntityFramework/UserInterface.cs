@@ -13,7 +13,7 @@ static internal class UserInterface
         var isAppRunning = true;
         while (isAppRunning)
         {
-            Console.Clear();
+            // Console.Clear();
             var option = AnsiConsole.Prompt(
             new SelectionPrompt<MainMenuOptions>()
             .Title("What would you like to do?")
@@ -21,6 +21,7 @@ static internal class UserInterface
                 MainMenuOptions.ManageCategories,
                 MainMenuOptions.ManageProducts,
                 MainMenuOptions.ManageOrders,
+                MainMenuOptions.CreateReport,
                 MainMenuOptions.Quit));
 
             switch (option)
@@ -33,6 +34,9 @@ static internal class UserInterface
                     break;
                 case MainMenuOptions.ManageOrders:
                     OrdersMenu();
+                    break;
+                case MainMenuOptions.CreateReport:
+                    ReportService.CreateReport();
                     break;
                 case MainMenuOptions.Quit:
                     Console.WriteLine("Goodbye");
@@ -47,7 +51,7 @@ static internal class UserInterface
         var isCategoriesMenuRunning = true;
         while (isCategoriesMenuRunning)
         {
-            Console.Clear();
+            // Console.Clear();
             var option = AnsiConsole.Prompt(
             new SelectionPrompt<CategoryMenu>()
             .Title("Categories Menu")
@@ -88,7 +92,7 @@ static internal class UserInterface
         var isProductMenuRunning = true;
         while (isProductMenuRunning)
         {
-            Console.Clear();
+            // Console.Clear();
             var option = AnsiConsole.Prompt(
             new SelectionPrompt<ProductMenu>()
             .Title("Products Menu")
@@ -129,7 +133,7 @@ static internal class UserInterface
         var isOrderMenuRunning = true;
         while (isOrderMenuRunning)
         {
-            Console.Clear();
+            //Console.Clear();
             var option = AnsiConsole.Prompt(
             new SelectionPrompt<OrderMenu>()
             .Title("Orders Menu")
@@ -297,5 +301,24 @@ Product Count: {order.OrderProducts.Sum(x => x.Quantity)}");
         Console.WriteLine("Press Any Key to Return to Menu");
         Console.ReadLine();
         Console.Clear();
+    }
+
+    internal static void ShowReportByMonth(List<MontlyReportDTO> report)
+    {
+        var table = new Table();
+        table.AddColumn("Month");
+        table.AddColumn("Total Quantity");
+        table.AddColumn("Total Sales");
+
+        foreach (var item in report)
+        {
+            table.AddRow(
+                item.Month,
+                item.TotalQuantity.ToString(),
+                item.TotalPrice.ToString()
+                );
+        }
+
+        AnsiConsole.Write(table);
     }
 }

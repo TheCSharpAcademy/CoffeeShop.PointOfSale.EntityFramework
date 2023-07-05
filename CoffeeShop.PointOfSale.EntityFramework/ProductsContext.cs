@@ -1,5 +1,6 @@
 ﻿using CoffeeShop.PointOfSale.EntityFramework.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace CoffeeShop.PointOfSale.EntityFramework;
 
@@ -10,7 +11,23 @@ internal class ProductsContext: DbContext
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderProduct> OrderProducts { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite($"Data Source = products.db");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => 
+        optionsBuilder
+        .UseSqlite($"Data Source = products.db")
+        .EnableSensitiveDataLogging()
+        .UseLoggerFactory(GetLoggerFactory());
+
+    private ILoggerFactory GetLoggerFactory()
+    {
+        var loggerFactory = LoggerFactory.Create(builder =>
+        {
+            builder.AddConsole();
+            builder.AddFilter((category, level) =>
+                category == DbLoggerCategory.Database.Command.Name && level == LogLevel.Information);
+        });
+
+        return loggerFactory;
+    }
 
     protected override void OnModelCreating (ModelBuilder modelBuilder)
     {
@@ -216,7 +233,31 @@ internal class ProductsContext: DbContext
                     OrderId = 16,
                     CreatedDate = DateTime.Now.AddMonths(-3),
                     TotalPrice = 97
-                }
+                },
+                new Order
+                {
+                    OrderId = 17,
+                    CreatedDate = DateTime.Now.AddYears(1),
+                    TotalPrice = 70
+                },
+                new Order
+                {
+                    OrderId = 18,
+                    CreatedDate = DateTime.Now.AddYears(1),
+                    TotalPrice = 109
+                },
+                new Order
+                {
+                    OrderId = 19,
+                    CreatedDate = DateTime.Now.AddYears(1),
+                    TotalPrice = 189
+                },
+                new Order
+                {
+                    OrderId = 20,
+                    CreatedDate = DateTime.Now.AddYears(-1),
+                    TotalPrice = 23
+                },
           });
 
         modelBuilder.Entity<OrderProduct>()
@@ -449,7 +490,67 @@ internal class ProductsContext: DbContext
                     OrderId = 16,
                     ProductId = 2,
                     Quantity = 1
-                }
+                },
+                new OrderProduct
+                {
+                    OrderId = 17,
+                    ProductId = 1,
+                    Quantity = 5
+                },
+                new OrderProduct
+                {
+                    OrderId = 17,
+                    ProductId = 2,
+                    Quantity = 1
+                },
+                new OrderProduct
+                {
+                    OrderId = 18,
+                    ProductId = 3,
+                    Quantity = 7
+                },
+                new OrderProduct
+                {
+                    OrderId = 18,
+                    ProductId = 4,
+                    Quantity = 3
+                },
+                new OrderProduct
+                {
+                    OrderId = 19,
+                    ProductId = 1,
+                    Quantity = 5
+                },
+                new OrderProduct
+                {
+                    OrderId = 19,
+                    ProductId = 2,
+                    Quantity = 1
+                },
+                new OrderProduct
+                {
+                    OrderId = 19,
+                    ProductId = 3,
+                    Quantity = 7
+                },
+                new OrderProduct
+                {
+                    OrderId = 19,
+                    ProductId = 4,
+                    Quantity = 3
+                },
+                new OrderProduct
+                {
+                    OrderId = 20,
+                    ProductId = 5,
+                    Quantity = 2
+                },
+                new OrderProduct
+                {
+                    OrderId = 20,
+                    ProductId = 6,
+                    Quantity = 1
+                },
           });
     }
 }
